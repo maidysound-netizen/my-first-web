@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>웹툰 작가 지망생의 작업대</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf7f0;
+      --paper: #ffffff;
+      --ink: #1d1b19;
+      --muted: #6b645c;
+      --line: #1d1b19;
+      --accent: #ff5a3c;
+      --accent-soft: #ffe3dc;
+      --blue: #2f6bff;
+      --blue-soft: #e2eaff;
+      --green: #1f9d6b;
+      --green-soft: #dcf3e8;
+      --shadow: 6px 6px 0 var(--line);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16151a;
+        --paper: #211f26;
+        --ink: #f3efe8;
+        --muted: #a9a29a;
+        --line: #f3efe8;
+        --accent: #ff7a5f;
+        --accent-soft: #3a2420;
+        --blue: #7d9eff;
+        --blue-soft: #1f2640;
+        --green: #4fd19c;
+        --green-soft: #18332a;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      background-image: radial-gradient(var(--muted) 0.6px, transparent 0.6px);
+      background-size: 18px 18px;
+      color: var(--ink);
+      font-family: "Noto Sans KR", system-ui, sans-serif;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 16px 80px;
+    }
+
+    /* 웹툰 컷처럼 보이는 공통 패널 */
+    .panel {
+      background: var(--paper);
+      border: 2.5px solid var(--line);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      padding: 28px 28px 24px;
+      margin-bottom: 36px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-weight: 900;
+      font-size: clamp(32px, 7vw, 52px);
+      line-height: 1.2;
+      margin: 0 0 16px;
+    }
+    h1 .hl {
+      background: linear-gradient(transparent 60%, var(--accent-soft) 60%);
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 900;
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .num {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      font-size: 15px;
+      background: var(--paper);
+    }
+
+    .lead {
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* 말풍선 */
+    .bubble {
+      position: relative;
+      background: var(--blue-soft);
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 20px;
+      margin: 20px 0 8px;
+      font-weight: 500;
+    }
+    .bubble::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      bottom: -12px;
+      width: 20px;
+      height: 20px;
+      background: var(--blue-soft);
+      border-right: 2px solid var(--line);
+      border-bottom: 2px solid var(--line);
+      transform: rotate(45deg);
+    }
+
+    /* 반복 작업 3단계 */
+    .flow {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .flow li {
+      border: 2px solid var(--line);
+      border-radius: 6px;
+      padding: 16px;
+      background: var(--accent-soft);
+    }
+    .flow li:nth-child(2) { background: var(--blue-soft); }
+    .flow li:nth-child(3) { background: var(--green-soft); }
+    .flow strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .flow span {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* 반복 업무 목록 */
+    .tasks {
+      list-style: none;
+      counter-reset: task;
+      padding: 0;
+      margin: 0;
+    }
+    .tasks li {
+      counter-increment: task;
+      position: relative;
+      padding: 14px 0 14px 52px;
+      border-bottom: 2px dashed var(--muted);
+    }
+    .tasks li:last-child { border-bottom: none; }
+    .tasks li::before {
+      content: counter(task);
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+    }
+    .tasks strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 900;
+    }
+    .tasks span {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    /* 에이전트 팀 */
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 20px;
+    }
+    .role {
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+    }
+
+    .scale {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 70px;
+      margin: 8px 0 6px;
+    }
+    .scale div {
+      flex: 1;
+      border: 2px solid var(--line);
+      border-radius: 4px 4px 0 0;
+      background: var(--accent);
+    }
+    .scale div.later { background: var(--paper); border-style: dashed; }
+    .scale-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .weekly {
+      margin: 20px 0 0;
+      padding: 12px 16px;
+      border-left: 5px solid var(--green);
+      background: var(--green-soft);
+      font-weight: 700;
+    }
+
+    /* 마음 기록 */
+    .essay p {
+      font-family: "Gowun Batang", serif;
+      font-size: 17px;
+      margin: 0 0 14px;
+    }
+    .essay p:last-child { margin-bottom: 0; }
+
+    .closing {
+      text-align: center;
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .closing p {
+      font-family: "Gowun Batang", serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+    }
+    .closing small {
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      .panel { padding: 22px 18px 20px; box-shadow: 4px 4px 0 var(--line); }
+      .flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+
+    <!-- 1컷: 소개 -->
+    <section class="panel">
+      <span class="tag">EP. 01 · 작업대를 차리다</span>
+      <h1>웹툰 작가 <span class="hl">지망생</span></h1>
+      <p class="lead">웹툰의 이미지 생성, 편집, 배포에서 반복되는 작업을 AI로 줄이고 싶습니다.</p>
+      <div class="bubble">
+        AI 에이전트들에게 역할을 나눠 맡겨, 한 작품을 함께 만드는 팀을 꾸리고 싶어요.
+      </div>
+    </section>
+
+    <!-- 2컷: 반복 작업 -->
+    <section class="panel">
+      <h2><span class="num">1</span>AI로 줄이고 싶은 반복 작업</h2>
+      <ul class="flow">
+        <li>
+          <strong>이미지 생성</strong>
+          <span>컷과 장면을 매번 처음부터 그리는 시간을 줄입니다.</span>
+        </li>
+        <li>
+          <strong>편집</strong>
+          <span>보정, 말풍선, 컷 배치처럼 반복되는 손질을 맡깁니다.</span>
+        </li>
+        <li>
+          <strong>배포</strong>
+          <span>회차별 업로드와 연재 준비를 일정하게 돌립니다.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3컷: 반복 업무 목록 -->
+    <section class="panel">
+      <h2><span class="num">2</span>AI로 개선하고 싶은 반복 업무</h2>
+      <ol class="tasks">
+        <li>
+          <strong>캐릭터 일관성 맞추기</strong>
+          <span>회차마다 같은 얼굴과 의상이 나오도록 캐릭터 기준 시트로 이미지를 생성합니다.</span>
+        </li>
+        <li>
+          <strong>컷 분할과 말풍선 식자</strong>
+          <span>세로 스크롤 규격에 맞게 컷을 자르고 대사를 말풍선에 넣습니다.</span>
+        </li>
+        <li>
+          <strong>주간 업로드 준비</strong>
+          <span>플랫폼 규격에 맞춘 이미지 분할, 썸네일, 회차 소개글을 만들어 예약합니다.</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 4컷: 에이전트 팀 -->
+    <section class="panel">
+      <h2><span class="num">3</span>AI 에이전트 팀으로 연재하기</h2>
+      <p>에이전트마다 역할을 하나씩 주고, 한 작품을 완성하는 하나의 그룹으로 묶습니다.</p>
+      <div class="team">
+        <span class="role">✏️ 이미지 생성</span>
+        <span class="role">🎨 편집</span>
+        <span class="role">🚀 배포</span>
+        <span class="role">🧭 작가(나)</span>
+      </div>
+      <p>이런 팀을 3팀에서 시작해 10팀까지 늘리는 것이 목표입니다.</p>
+      <div class="scale" aria-label="3팀에서 10팀으로 늘어나는 계획">
+        <div style="height:30%"></div>
+        <div style="height:38%"></div>
+        <div style="height:46%"></div>
+        <div class="later" style="height:54%"></div>
+        <div class="later" style="height:62%"></div>
+        <div class="later" style="height:70%"></div>
+        <div class="later" style="height:78%"></div>
+        <div class="later" style="height:86%"></div>
+        <div class="later" style="height:93%"></div>
+        <div class="later" style="height:100%"></div>
+      </div>
+      <div class="scale-label"><span>첫 목표 · 3팀</span><span>10팀</span></div>
+      <p class="weekly">📅 매주 고정 연재</p>
+    </section>
+
+    <!-- 5컷: 마음 기록 -->
+    <section class="panel essay">
+      <h2><span class="num">4</span>이 과정을 지나며</h2>
+      <p>아마 쉽지 않겠지만, 무슨 일이 있어도 이 과정을 거쳐야 한다고 생각합니다. 그래야 다음에 AI와 함께 무언가를 빌드할 때 큰 실수를 하거나 막히지 않을 테니까요.</p>
+      <p>지금 이 과정이 정말 감사합니다. AI뿐 아니라 다른 개발자들과 협업하고 소통하는 방법을 배우고 있다는 점에서 매우 만족하고 있습니다.</p>
+      <p>나라를 대표하는 사람으로서, 국익을 위해 사람들에게 도움이 되는 것을 하루빨리 만들어 출시하고 싶습니다.</p>
+      <p>재정적으로도 어렵고, 더는 20대·30대가 아니기에 체력과 건강도 걱정됩니다. 마음이 조급한 것도 사실입니다.</p>
+      <p>하지만 이런 걱정을 하는 사람이 저 혼자만은 아닐 겁니다. 그래서 더더욱 협력해서 선을 이루고, 함께 상생하는 쪽으로 나아가야 한다고 생각합니다.</p>
+    </section>
+
+    <!-- 마지막 컷 -->
+    <section class="panel closing">
+      <p>혼란스러운 시대일수록, 함께 상생하는 쪽으로.</p>
+      <small>— 다음 화에 계속</small>
+    </section>
+
+  </main>
+</body>
+</html>
